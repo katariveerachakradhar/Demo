@@ -1,6 +1,8 @@
 - name: launch EC2 instance
   hosts: localhost
-  - variables.yaml
+  connection: local
+  vars_files:
+    - variables.yaml
   tasks:
     - name: launch EC2 instance
       amazon.web.ec2_instance:
