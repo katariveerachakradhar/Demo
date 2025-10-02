@@ -1,20 +1,32 @@
-- name: create ec2  #creating ec2  
-  hosts: local
-  connection: local
-  vars:
-    - vars.yml
-  tasks:
-  - name: create ec2
-    amazon.aws.ec2_instance:
-      name: "{{ item }}"
-      vpc_subnet_id: "{{ subnet_id }}"
-      instance_type: t3.micro
-      security_group: "{{ sg_id }}"
-      image_id: ami-09c813fb71547fc4f
-      tags:
-        Name: "{{ item }}"
-    register: ec2_output
+---
+- name: Launch EC2 instance with defined variables
+  hosts: localhost
+  gather_facts: false
 
-  - name: print ec2_output
-    ansible.builtin.debug:
-      msg: "{{ ec2_output }}"
+  vars:
+    region: "us-west-2"
+    instance_type: "t2.micro"
+    image: "ami-0d1cd67c26f5fca19"   # Replace with your region's AMI ID
+    key_name: "daws-84s"
+    security_group: "sg-058c3a47b82e88b3a"
+    count: 1
+    tag_name: "MyEC2Instance"
+
+  tasks:
+    - name: Launch EC2 instance(s)
+      amazon.aws.ec2_instance:
+        key_name: "{{ key_name }}"
+        instance_type: "{{ instance_type }}"
+        image_id: "{{ image }}"
+        region: "{{ region }}"
+        security_groups:
+          - "{{ security_group }}"
+        count: "{{ count }}"
+        wait: yes
+        tags:
+          Name: "{{ tag_name }}"
+      register: ec2
+
+    - name: Show launched instances
+      debug:
+        var: ec2.instances
