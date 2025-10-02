@@ -12,6 +12,7 @@
     count: 2
     tag_name: "MyEC2Instance"
 
+
   tasks:
     - name: Launch EC2 instance(s)
       amazon.aws.ec2_instance:
