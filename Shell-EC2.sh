@@ -4,7 +4,7 @@ source ./variables.sh
 
 echo "Launching EC2 instance"
 
-aws ec2 run-instance\
+aws ec2 run-instances\
 image-id="$AMI_ID" \
 count="$COUNT" \
 instance-type="$INSTANCE_TYPE"\
