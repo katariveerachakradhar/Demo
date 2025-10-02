@@ -7,6 +7,7 @@ KEY_NAME="daws-84s"                # Your EC2 key pair name
 SECURITY_GROUP_ID="sg-058c3a47b82e88b3a"  # Security group ID
 SUBNET_ID="subnet-06c1dd3be6de657c0" # Subnet ID (optional, but recommended)
 REGION="us-east-1"                   # AWS Region
+TAG_NAME="Shell EC2"
 
 # Launching EC2 instance with minimal parameters
 aws ec2 run-instances \
@@ -14,6 +15,7 @@ aws ec2 run-instances \
   --count 1 \
   --instance-type $INSTANCE_TYPE \
   --key-name $KEY_NAME \
+  --tag-name= $TAG_NAME \
   --security-group-ids $SECURITY_GROUP_ID \
   --subnet-id $SUBNET_ID \
   --region $REGION \

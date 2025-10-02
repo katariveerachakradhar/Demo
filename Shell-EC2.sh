@@ -1,5 +1,7 @@
 #!/bin/bash
+
 source ./variables.sh
+
 echo "Launching EC2 instance"
 aws ec2 run-instances \
   --image-id "$AMI_ID" \
