@@ -1,23 +1,22 @@
 ---
-- name: Create EC2 Instance
-  hosts: local
+- name: Launch EC2 instance without hardcoded keys
+  hosts: localhost
   gather_facts: false
   vars_files:
-    - vars.yaml
+    - vars.yml
+
   tasks:
     - name: Launch EC2 instance
       amazon.aws.ec2_instance:
-        name: "{{ instance_tags.Name }}"
+        key_name: "{{ key_name }}"
         instance_type: "{{ instance_type }}"
-        image_id: "{{ ami_id }}"
-        key_name: "{{ key_pair_name }}"
-        security_group: "{{ security_group_name }}"
-        subnet_id: "{{ subnet_id | default(omit) }}" # Use default(omit) if subnet_id is not defined
-        region: "{{ aws_region }}"
-        tags: "{{ instance_tags }}"
-        state: present
-      register: ec2_info
+        image_id: "{{ image }}"
+        region: "{{ region }}"
+        security_groups: [ "{{ security_group }}" ]
+        count: "{{ count }}"
+        wait: yes
+      register: ec2
 
-    - name: Print EC2 instance ID
+    - name: Show launched instances
       debug:
-        msg: "EC2 instance ID: {{ ec2_info.instance_ids[0] }}"
+        var: ec2.instances
