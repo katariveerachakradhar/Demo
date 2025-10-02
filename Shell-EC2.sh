@@ -6,6 +6,7 @@ aws ec2 run-instances \
   --count "$COUNT" \
   --instance-type "$INSTANCE_TYPE" \
   --security-group-ids "$SECURITY_GROUP_IDS" \
+  --key-name "$KEY_NAME"\
   --subnet-id "$SUBNET_ID" \
   --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$TAG_NAME}]" \
   --region "$REGION" \
