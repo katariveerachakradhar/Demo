@@ -1,12 +1,12 @@
 ---
-- name: Launch EC2 instance without hardcoded keys
+- name: Launch EC2 instance
   hosts: localhost
   gather_facts: false
   vars_files:
-    - vars.yaml
+    - vars.yml
 
   tasks:
-    - name: Launch EC2 instance
+    - name: Launch EC2 instance(s)
       amazon.aws.ec2_instance:
         key_name: "{{ key_name }}"
         instance_type: "{{ instance_type }}"
