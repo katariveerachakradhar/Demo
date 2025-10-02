@@ -15,10 +15,10 @@ aws ec2 run-instances \
   --count 1 \
   --instance-type $INSTANCE_TYPE \
   --key-name $KEY_NAME \
-  --tag-name= $TAG_NAME \
   --security-group-ids $SECURITY_GROUP_ID \
   --subnet-id $SUBNET_ID \
   --region $REGION \
+  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$TAG_NAME}]" \
   --output json
 
 echo "EC2 instance launch attempted"
