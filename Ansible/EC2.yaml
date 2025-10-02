@@ -5,7 +5,7 @@
     - variables.yaml
   tasks:
     - name: launch EC2 instance
-      amazon.web.ec2_instance:
+      amazon.aws.ec2_instance:
         name: "{{ tag_name }}"
         key_name: "{{key_name}}"
         instance_type: "{{ instance_type }}"
