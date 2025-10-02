@@ -1,5 +1,5 @@
 ---
-- name: Launch EC2 instances with variables in playbook
+- name: Launch EC2 instances
   hosts: localhost
   gather_facts: false
 
