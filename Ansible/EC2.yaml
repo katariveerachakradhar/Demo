@@ -1,26 +1,25 @@
 ---
-- name: Create EC2 Instances
+- name: Launch EC2 instance without hardcoded keys
   hosts: localhost
-  connection: local
-  gather_facts: no
+  gather_facts: false
   vars_files:
-    - vars.yaml
+    - vars.yml
 
   tasks:
-    - name: Launch EC2 instances
+    - name: Launch EC2 instance
       amazon.aws.ec2_instance:
-        region: "{{ region }}"
-        image_id: "{{ ami_id }}"
-        instance_type: "{{ instance_type }}"
         key_name: "{{ key_name }}"
-        security_group_ids:
-          - "{{ security_group_id }}"
-        subnet_id: "{{ subnet_id }}"
-        count: "{{ instance_count }}"
+        instance_type: "{{ instance_type }}"
+        image_id: "{{ image }}"
+        region: "{{ region }}"
+        security_groups:
+          - "{{ security_group }}"
+        count: "{{ count }}"
+        wait: yes
         tags:
-          Name: "{{ instance_tag_name }}"
-      register: ec2_info
+          Name: "{{ tag_name }}"
+      register: ec2
 
-    - name: Display instance information
+    - name: Show launched instances
       debug:
-        var: ec2_info.instances
+        var: ec2.instances
