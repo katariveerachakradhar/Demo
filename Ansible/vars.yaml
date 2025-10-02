@@ -1,11 +1,10 @@
-region: "us-east-1"
-key_name: daws84s
+aws_region: "us-east-1"
 instance_type: t2.micro
-image_id: "ami-09c813fb71547fc4f"
-security_group: "sg-058c3a47b82e88b3a"
-subnet_id: "subnet-06c1dd3be6de657c0"
-tag_name: "Ansible EC2"
-count: 1
-
-
-
+ami_id: "ami-09c813fb71547fc4f" # Replace with a valid AMI ID for your region
+key_pair_name: daws84s # Replace with your existing key pair name
+security_group_name: "sg-058c3a47b82e88b3a" # Replace with an existing security group or create one
+subnet_id: "subnet-06c1dd3be6de657c0" # Optional: Replace with your subnet ID
+instance_tags:
+  Name: "Ansible EC2"
+  Project: Ansible EC2 instance
+  Count: 2
