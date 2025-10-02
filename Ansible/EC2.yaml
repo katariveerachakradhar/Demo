@@ -1,3 +1,4 @@
+---
 - name: launch EC2 instance
   hosts: localhost
   connection: local
@@ -7,9 +8,9 @@
     - name: launch EC2 instance
       amazon.aws.ec2_instance:
         name: "{{ tag_name }}"
-        key_name: "{{key_name}}"
+        key_name: "{{ key_name }}"
         instance_type: "{{ instance_type }}"
-        image_id: "{{image_id}}"
+        image_id: "{{ image_id }}"
         region: "{{ region }}"
         security_group: "{{ security_group }}"
         subnet_id: "{{ subnet_id }}"
@@ -17,8 +18,7 @@
         count: "{{ count }}"
         assign_public_ip: yes
       register: ec2
-    
+
     - name: Show instances info
       debug:
         msg: "EC2 instance launched with ID {{ ec2.instance_ids[0] }}"
-
