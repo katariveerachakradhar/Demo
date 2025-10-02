@@ -6,7 +6,7 @@
   vars:
     region: "us-west-1"
     instance_type: "t2.micro"
-    image: "ami-0d1cd67c26f5fca19"   # Replace with your AMI ID
+    image: "ami-09c813fb71547fc4f"   # Replace with your AMI ID
     key_name: "daws-84s"
     security_group: "sg-058c3a47b82e88b3a"
     count: 1
