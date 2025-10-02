@@ -1,0 +1,22 @@
+- name: launch EC2 instance
+  hosts: localhost
+  connection: local
+  - variables.yaml
+  tasks:
+    - name: launch EC2 instance
+      amazon.web.ec2_instance:
+        name: "{{ tag_name }}"
+        key_name: "{{key_name}}"
+        instance_type: "{{ instance_type }}"
+        image_id: "{{iamge_id}}"
+        region: "{{ region }}"
+        security_group: "{{ security_group }}"
+        subnet_id: "{{ subnet_id }}"
+        wait: yes
+        count: "{{ count }}"
+        assign_prublic_ip: yes
+      register: ec2
+    
+    - name: Show instances info
+      debug:
+        msg: "EC2 instance launched with ID {{ ec2.instance_ids[0] }}"
