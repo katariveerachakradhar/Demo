@@ -1,9 +1,17 @@
 ---
-- name: Launch EC2 instance
+- name: Launch EC2 instances with variables declared in playbook
   hosts: localhost
   gather_facts: false
-  vars_files:
-    - vars.yml
+
+  vars:
+    region: "us-west-2"
+    instance_type: "t2.micro"
+    image: "ami-0d1cd67c26f5fca19"   # Adjust AMI ID for your region
+    key_name: "daws-84s"
+    security_group: "sg-058c3a47b82e88b3a"
+    count: 2
+    tag_name: "MyEC2Instance"
+
 
   tasks:
     - name: Launch EC2 instance(s)
