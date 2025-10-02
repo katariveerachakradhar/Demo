@@ -1,33 +1,22 @@
----
-- name: Launch EC2 instances with variables declared in playbook
-  hosts: localhost
-  gather_facts: false
-
+- name: create ec2 and r53 records #creating ec2 and r53 
+  hosts: local
+  connection: local
   vars:
-    region: "us-west-2"
-    instance_type: "t2.micro"
-    image: "ami-0d1cd67c26f5fca19"   # Adjust AMI ID for your region
-    key_name: "daws-84s"
-    security_group: "sg-058c3a47b82e88b3a"
-    count: 2
-    tag_name: "MyEC2Instance"
-
-
+    - vars.yml
   tasks:
-    - name: Launch EC2 instance(s)
-      amazon.aws.ec2_instance:
-        key_name: "{{ key_name }}"
-        instance_type: "{{ instance_type }}"
-        image_id: "{{ image }}"
-        region: "{{ region }}"
-        security_groups:
-          - "{{ security_group }}"
-        count: "{{ count }}"
-        wait: yes
-        tags:
-          Name: "{{ tag_name }}"
-      register: ec2
+  - name: create ec2
+    amazon.aws.ec2_instance:
+      name: "{{ item }}"
+      vpc_subnet_id: "{{ subnet_id }}"
+      instance_type: t3.micro
+      security_group: "{{ sg_id }}"
+      image_id: ami-09c813fb71547fc4f
+      tags:
+        Name: "{{ item }}"
+    loop: "{{ instances }}"
+    register: ec2_output
 
-    - name: Show launched instances
-      debug:
-        var: ec2.instances
+  - name: print ec2_output
+    ansible.builtin.debug:
+      msg: "{{ ec2_output }}"
+
