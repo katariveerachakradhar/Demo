@@ -1,28 +1,26 @@
 ---
-- name: Launch EC2 instance
+- name: Create EC2 Instances
   hosts: localhost
-  gather_facts: false
+  connection: local
+  gather_facts: no
   vars_files:
-    - vars.yml
-
-  vars:
-    tag_name: "Ansible EC2"
+    - vars.yaml
 
   tasks:
-    - name: Launch EC2 instance
+    - name: Launch EC2 instances
       amazon.aws.ec2_instance:
-        key_name: "{{ key_name }}"
-        instance_type: "{{ instance_type }}"
-        image_id: "{{ image }}"
         region: "{{ region }}"
-        security_groups:
-          - "{{ security_group }}"
-        count: "{{ count }}"
-        wait: yes
+        image_id: "{{ ami_id }}"
+        instance_type: "{{ instance_type }}"
+        key_name: "{{ key_name }}"
+        security_group_ids:
+          - "{{ security_group_id }}"
+        subnet_id: "{{ subnet_id }}"
+        count: "{{ instance_count }}"
         tags:
-          Name: "{{ tag_name }}"
-      register: ec2
+          Name: "{{ instance_tag_name }}"
+      register: ec2_info
 
-    - name: Show launched instances
+    - name: Display instance information
       debug:
-        var: ec2.instances
+        var: ec2_info.instances
