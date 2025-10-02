@@ -1,4 +1,4 @@
-- name: create ec2  #creating ec2  
+- name: create ec2 and r53 records #creating ec2 and r53 
   hosts: local
   connection: local
   vars:
@@ -13,8 +13,10 @@
       image_id: ami-09c813fb71547fc4f
       tags:
         Name: "{{ item }}"
+    loop: "{{ instances }}"
     register: ec2_output
 
   - name: print ec2_output
     ansible.builtin.debug:
       msg: "{{ ec2_output }}"
+
