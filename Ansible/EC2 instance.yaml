@@ -1,0 +1,32 @@
+---
+- name: Launch EC2 instances with variables declared in playbook
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    region: "us-west-2"
+    instance_type: "t2.micro"
+    image: "ami-0d1cd67c26f5fca19"   # Adjust AMI ID for your region
+    key_name: "my_ssh_key"
+    security_group: "default"
+    count: 2
+    tag_name: "MyEC2Instance"
+
+  tasks:
+    - name: Launch EC2 instance(s)
+      amazon.aws.ec2_instance:
+        key_name: "{{ key_name }}"
+        instance_type: "{{ instance_type }}"
+        image_id: "{{ image }}"
+        region: "{{ region }}"
+        security_groups:
+          - "{{ security_group }}"
+        count: "{{ count }}"
+        wait: yes
+        tags:
+          Name: "{{ tag_name }}"
+      register: ec2
+
+    - name: Show launched instances
+      debug:
+        var: ec2.instances
