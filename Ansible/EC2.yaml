@@ -1,12 +1,12 @@
 ---
-- name: Launch EC2 instance with defined variables
+- name: Launch EC2 instances with variables in playbook
   hosts: localhost
   gather_facts: false
 
   vars:
     region: "us-west-2"
     instance_type: "t2.micro"
-    image: "ami-0d1cd67c26f5fca19"   # Replace with your region's AMI ID
+    image: "ami-0d1cd67c26f5fca19"   # Replace with your AMI ID
     key_name: "daws-84s"
     security_group: "sg-058c3a47b82e88b3a"
     count: 1
