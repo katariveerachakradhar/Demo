@@ -8,3 +8,5 @@ SUBNET_ID="subnet-06c1dd3be6de657c0"
 TAG_NAME="DEMO-1"
 REGION="us-east-1"
 COUNT=1
+
+
