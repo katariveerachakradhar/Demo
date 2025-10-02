@@ -1,5 +1,5 @@
 ---
-- name: Launch EC2 instance without hardcoded keys
+- name: Launch EC2 instance
   hosts: localhost
   gather_facts: false
   vars_files:
@@ -12,7 +12,8 @@
         instance_type: "{{ instance_type }}"
         image_id: "{{ image }}"
         region: "{{ region }}"
-        security_groups: [ "{{ security_group }}" ]
+        security_groups:
+          - "{{ security_group }}"
         count: "{{ count }}"
         wait: yes
       register: ec2
