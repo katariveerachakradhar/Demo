@@ -1,6 +1,7 @@
 - name: launch EC2 instance
   hosts: localhost
   connection: local
+  vars:
   - variables.yaml
   tasks:
     - name: launch EC2 instance
