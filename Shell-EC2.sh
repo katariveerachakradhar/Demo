@@ -4,7 +4,6 @@ echo "Launching EC2 instance"
 aws ec2 run-instances \
   --image-id "$AMI_ID" \
   --count "$COUNT" \
-  --instance-name "$INSTANCE_NAME"\
   --instance-type "$INSTANCE_TYPE" \
   --security-group-ids "$SECURITY_GROUP_IDS" \
   --subnet-id "$SUBNET_ID" \
