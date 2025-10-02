@@ -4,7 +4,7 @@
   gather_facts: false
 
   vars:
-    region: "us-west-2"
+    region: "us-west-1"
     instance_type: "t2.micro"
     image: "ami-0d1cd67c26f5fca19"   # Replace with your AMI ID
     key_name: "daws-84s"
