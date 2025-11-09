@@ -1,3 +1,4 @@
+
 - name: create ec2  #creating ec2  
   hosts: local
   connection: local
@@ -14,7 +15,6 @@
       tags:
         Name: "{{ item }}"
     register: ec2_output
-
   - name: print ec2_output
     ansible.builtin.debug:
       msg: "{{ ec2_output }}"
