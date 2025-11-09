@@ -1,3 +1,4 @@
+
 - name: create ec2 and r53 records #creating ec2 and r53 
   hosts: local
   connection: local
@@ -19,4 +20,3 @@
   - name: print ec2_output
     ansible.builtin.debug:
       msg: "{{ ec2_output }}"
-
